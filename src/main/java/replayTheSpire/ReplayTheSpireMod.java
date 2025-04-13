@@ -80,9 +80,6 @@ public class ReplayTheSpireMod implements PostInitializeSubscriber, EditStringsS
         String eventStringsF = Gdx.files.internal(jsonPath + "FadingForestEventStrings.json").readString(String.valueOf(StandardCharsets.UTF_8));
         BaseMod.loadCustomStrings(EventStrings.class, eventStringsF);
 
-        String uiStrings = Gdx.files.internal(jsonPath + "ReplayUIStrings.json").readString(String.valueOf(StandardCharsets.UTF_8));
-        BaseMod.loadCustomStrings(UIStrings.class, uiStrings);
-
         String mStrings = Gdx.files.internal(jsonPath + "ReplayMonsterStrings.json").readString(String.valueOf(StandardCharsets.UTF_8));
         BaseMod.loadCustomStrings(MonsterStrings.class, mStrings);
 	}
