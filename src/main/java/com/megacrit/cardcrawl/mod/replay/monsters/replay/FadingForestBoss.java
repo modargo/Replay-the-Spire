@@ -1,37 +1,18 @@
 package com.megacrit.cardcrawl.mod.replay.monsters.replay;
 
-import com.megacrit.cardcrawl.localization.*;
-import com.megacrit.cardcrawl.mod.replay.actions.*;
-import com.megacrit.cardcrawl.mod.replay.actions.common.*;
-import com.megacrit.cardcrawl.mod.replay.actions.unique.*;
-import com.megacrit.cardcrawl.mod.replay.actions.utility.*;
-import com.megacrit.cardcrawl.mod.replay.cards.*;
-import com.megacrit.cardcrawl.mod.replay.cards.curses.*;
-import com.megacrit.cardcrawl.mod.replay.cards.status.*;
-import com.megacrit.cardcrawl.mod.replay.events.*;
-import com.megacrit.cardcrawl.mod.replay.monsters.*;
-import com.megacrit.cardcrawl.mod.replay.monsters.replay.fadingForest.*;
-import com.megacrit.cardcrawl.mod.replay.powers.*;
-import com.megacrit.cardcrawl.mod.replay.powers.relicPowers.*;
-import com.megacrit.cardcrawl.mod.replay.vfx.combat.ColorSmokeBombEffect;
-import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.powers.ConfusionPower;
-//import com.megacrit.cardcrawl.monsters.Intent;
-import com.megacrit.cardcrawl.powers.DexterityPower;
-import com.megacrit.cardcrawl.powers.FadingPower;
-import com.megacrit.cardcrawl.powers.FrailPower;
-import com.megacrit.cardcrawl.powers.HexPower;
-import com.megacrit.cardcrawl.powers.IntangiblePower;
-import com.megacrit.cardcrawl.powers.SlowPower;
-import com.megacrit.cardcrawl.powers.SlowPower2;
-import com.megacrit.cardcrawl.powers.VulnerablePower;
-import com.megacrit.cardcrawl.powers.WeakPower;
-import com.megacrit.cardcrawl.rooms.MonsterRoomBoss;
-import com.megacrit.cardcrawl.unlock.UnlockTracker;
-import com.megacrit.cardcrawl.dungeons.*;
-import com.megacrit.cardcrawl.events.AbstractEvent;
-import com.megacrit.cardcrawl.events.GenericEventDialog;
-import com.megacrit.cardcrawl.helpers.CardLibrary;
+import basemod.ReflectionHacks;
+import basemod.abstracts.CustomCard;
+import basemod.abstracts.CustomMonster;
+import basemod.animations.AbstractAnimation;
+import basemod.animations.SpriterAnimation;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.megacrit.cardcrawl.actions.AbstractGameAction;
+import com.megacrit.cardcrawl.actions.animations.TalkAction;
+import com.megacrit.cardcrawl.actions.animations.VFXAction;
+import com.megacrit.cardcrawl.actions.common.*;
+import com.megacrit.cardcrawl.actions.utility.HideHealthBarAction;
+import com.megacrit.cardcrawl.actions.utility.WaitAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.cards.blue.Strike_Blue;
@@ -46,37 +27,30 @@ import com.megacrit.cardcrawl.cards.status.Slimed;
 import com.megacrit.cardcrawl.cards.status.Wound;
 import com.megacrit.cardcrawl.characters.Ironclad;
 import com.megacrit.cardcrawl.characters.TheSilent;
-import com.megacrit.cardcrawl.vfx.ThoughtBubble;
+import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.events.AbstractEvent;
+import com.megacrit.cardcrawl.events.GenericEventDialog;
+import com.megacrit.cardcrawl.localization.EventStrings;
+import com.megacrit.cardcrawl.localization.MonsterStrings;
+import com.megacrit.cardcrawl.mod.replay.actions.unique.ForestEventAction;
+import com.megacrit.cardcrawl.mod.replay.actions.unique.SpawnForestMonsterAction;
+import com.megacrit.cardcrawl.mod.replay.actions.unique.WispExhaustAction;
+import com.megacrit.cardcrawl.mod.replay.cards.curses.SpreadingInfection;
+import com.megacrit.cardcrawl.mod.replay.monsters.replay.fadingForest.*;
+import com.megacrit.cardcrawl.mod.replay.powers.AgingPower;
+import com.megacrit.cardcrawl.mod.replay.powers.StoryPower;
+import com.megacrit.cardcrawl.mod.replay.powers.relicPowers.*;
+import com.megacrit.cardcrawl.mod.replay.vfx.combat.ColorSmokeBombEffect;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.powers.*;
+import com.megacrit.cardcrawl.rooms.MonsterRoomBoss;
+import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import com.megacrit.cardcrawl.vfx.combat.SmokeBombEffect;
-import com.megacrit.cardcrawl.actions.AbstractGameAction;
-import com.megacrit.cardcrawl.actions.animations.*;
-import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
-import com.megacrit.cardcrawl.actions.common.DamageAction;
-import com.megacrit.cardcrawl.actions.common.EscapeAction;
-import com.megacrit.cardcrawl.actions.common.ExhaustSpecificCardAction;
-import com.megacrit.cardcrawl.actions.common.HealAction;
-import com.megacrit.cardcrawl.actions.common.LoseHPAction;
-import com.megacrit.cardcrawl.actions.common.MakeTempCardInDiscardAction;
-import com.megacrit.cardcrawl.actions.common.MakeTempCardInDrawPileAction;
-import com.megacrit.cardcrawl.actions.common.MakeTempCardInHandAction;
-import com.megacrit.cardcrawl.actions.common.RollMoveAction;
-import com.megacrit.cardcrawl.actions.common.SetMoveAction;
-import com.megacrit.cardcrawl.actions.common.SuicideAction;
-import com.megacrit.cardcrawl.actions.utility.HideHealthBarAction;
-import com.megacrit.cardcrawl.actions.utility.WaitAction;
-import com.badlogic.gdx.math.*;
-import com.megacrit.cardcrawl.core.*;
-import com.badlogic.gdx.*;
-import com.badlogic.gdx.graphics.*;
-import com.badlogic.gdx.graphics.g2d.*;
-import java.util.*;
-import basemod.*;
-import basemod.animations.*;
-import replayTheSpire.ReplayTheSpireMod;
 import replayTheSpire.patches.RenderHandPatch;
-import theAct.cards.fungalobungalofunguyfuntimes.*;
-import basemod.abstracts.CustomCard;
-import basemod.abstracts.CustomMonster;
+
+import java.util.ArrayList;
 
 public class FadingForestBoss extends CustomMonster
 {
@@ -333,9 +307,6 @@ public class FadingForestBoss extends CustomMonster
                 this.imageEventText.updateBodyText(this.eDesc(0));
 				this.imageEventText.setDialogOption(this.eOp(1));
 				this.imageEventText.setDialogOption(this.eOp(2) + this.savedDamage + this.eOp(3) + this.mushroom_chance + this.eOp(4), new SpreadingInfection());
-				/*if (ReplayTheSpireMod.foundmod_jungle) {
-					this.imageEventText.setDialogOption(this.eOp(5) + (this.headache_amt * 2) + this.eOp(6));
-				}*/
 				AbstractDungeon.actionManager.addToBottom(new ForestEventAction());
 				AbstractDungeon.actionManager.addToBottom(new RollMoveAction(this));
 				break;
@@ -664,28 +635,6 @@ public class FadingForestBoss extends CustomMonster
 						AbstractMonster m = new FF_FungiBeast(-350f, 0f);
 						AbstractDungeon.actionManager.addToTop(new SpawnForestMonsterAction(m, true));
 						break;
-					case 2:
-						if (ReplayTheSpireMod.foundmod_jungle) {
-							for (int i=0; i < this.headache_amt * 2; i++) {
-								AbstractCard c = null;
-						        switch (AbstractDungeon.miscRng.random(3)) {
-						            case 0: {
-						                c = CardLibrary.getCopy(SS_Clouding.ID);
-						                break;
-						            }
-						            case 1: {
-						            	c = CardLibrary.getCopy(SS_Leeching.ID);
-						                break;
-						            }
-						            default: {
-						            	c = CardLibrary.getCopy(SS_Toxin.ID);
-						                break;
-						            }
-						        }
-						        AbstractDungeon.actionManager.addToBottom(new MakeTempCardInDiscardAction(c, 1));
-							}
-							break;
-						}
 					default:
 						if (AbstractDungeon.miscRng.random(100) < this.mushroom_chance) {
 							AbstractDungeon.actionManager.addToTop(new MakeTempCardInDiscardAction(new SpreadingInfection(), 1));

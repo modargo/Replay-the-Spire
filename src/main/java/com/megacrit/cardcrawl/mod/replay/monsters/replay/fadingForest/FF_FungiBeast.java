@@ -1,21 +1,7 @@
 package com.megacrit.cardcrawl.mod.replay.monsters.replay.fadingForest;
 
-import com.megacrit.cardcrawl.localization.*;
-import com.megacrit.cardcrawl.mod.replay.actions.*;
-import com.megacrit.cardcrawl.mod.replay.actions.common.*;
-import com.megacrit.cardcrawl.mod.replay.actions.utility.*;
-import com.megacrit.cardcrawl.mod.replay.cards.*;
-import com.megacrit.cardcrawl.mod.replay.monsters.*;
-import com.megacrit.cardcrawl.mod.replay.monsters.replay.FadingForestBoss;
-import com.megacrit.cardcrawl.mod.replay.powers.*;
-import com.megacrit.cardcrawl.monsters.AbstractMonster;
-//import com.megacrit.cardcrawl.monsters.Intent;
-import com.megacrit.cardcrawl.powers.FadingPower;
-import com.megacrit.cardcrawl.powers.SporeCloudPower;
-import com.megacrit.cardcrawl.powers.StrengthPower;
-import com.megacrit.cardcrawl.dungeons.*;
-import com.badlogic.gdx.math.*;
-import com.esotericsoftware.spine.*;
+import com.badlogic.gdx.math.MathUtils;
+import com.esotericsoftware.spine.AnimationState;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.ChangeStateAction;
@@ -23,7 +9,14 @@ import com.megacrit.cardcrawl.actions.common.DamageAction;
 import com.megacrit.cardcrawl.actions.common.RollMoveAction;
 import com.megacrit.cardcrawl.actions.utility.WaitAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
-import com.megacrit.cardcrawl.core.*;
+import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.localization.MonsterStrings;
+import com.megacrit.cardcrawl.mod.replay.monsters.replay.FadingForestBoss;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.powers.FadingPower;
+import com.megacrit.cardcrawl.powers.SporeCloudPower;
+import com.megacrit.cardcrawl.powers.StrengthPower;
 
 public class FF_FungiBeast extends AbstractMonster
 {

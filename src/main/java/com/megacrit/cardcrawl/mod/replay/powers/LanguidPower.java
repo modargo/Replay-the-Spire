@@ -1,20 +1,15 @@
 package com.megacrit.cardcrawl.mod.replay.powers;
 
-import com.megacrit.cardcrawl.localization.*;
-import com.megacrit.cardcrawl.mod.replay.actions.*;
-import com.megacrit.cardcrawl.mod.replay.actions.common.*;
-import com.megacrit.cardcrawl.mod.replay.cards.*;
-import com.megacrit.cardcrawl.powers.AbstractPower;
-
 import basemod.interfaces.CloneablePowerInterface;
-import replayTheSpire.ReplayTheSpireMod;
-
-//import com.megacrit.cardcrawl.powers.PowerType;
-import com.megacrit.cardcrawl.dungeons.*;
 import com.megacrit.cardcrawl.actions.common.ReducePowerAction;
 import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
-import com.megacrit.cardcrawl.core.*;
+import com.megacrit.cardcrawl.core.AbstractCreature;
+import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.localization.PowerStrings;
+import com.megacrit.cardcrawl.powers.AbstractPower;
+import replayTheSpire.ReplayTheSpireMod;
 
 public class LanguidPower extends AbstractPower implements CloneablePowerInterface
 {

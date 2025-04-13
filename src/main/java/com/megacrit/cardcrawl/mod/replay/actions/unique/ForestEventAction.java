@@ -1,12 +1,8 @@
 package com.megacrit.cardcrawl.mod.replay.actions.unique;
 
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
-import com.megacrit.cardcrawl.core.*;
 import com.megacrit.cardcrawl.events.GenericEventDialog;
-import com.megacrit.cardcrawl.mod.replay.actions.*;
-import com.megacrit.cardcrawl.mod.replay.events.*;
-import com.megacrit.cardcrawl.mod.replay.monsters.replay.*;
-
+import com.megacrit.cardcrawl.mod.replay.monsters.replay.FadingForestBoss;
 import replayTheSpire.patches.RenderHandPatch;
 
 public class ForestEventAction extends AbstractGameAction
