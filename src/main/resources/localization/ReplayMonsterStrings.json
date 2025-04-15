@@ -30,5 +30,13 @@
 		"Come by any time, dearie. I've plenty more stories to tell!",
 		"Feel free to drop by again sometime, and I'll tell you a new tale."
 	]
+  },
+  "FF_ComboSlime_L": {
+    "MOVES": [
+    	"Mixed Spit",
+    	"Split",
+    	"Lick"
+    ],
+    "NAME": "False Combo Slime (L)"
   }
 }
