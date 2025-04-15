@@ -302,7 +302,7 @@ public class FadingForestBoss extends CustomMonster
 				break;
             }
             case ATTACK_MUSHROOMS: {
-				this.imageEventText.loadImage("images/events/fadingForest/mushrooms.jpg");
+				this.imageEventText.loadImage("images/events/fadingForest/mushrooms.png");
 				this.savedDamage = this.damage.get(2).output;
                 this.imageEventText.updateBodyText(this.eDesc(0));
 				this.imageEventText.setDialogOption(this.eOp(1));
